@@ -8,7 +8,7 @@ public class CommandSet {
     private static void initialize() {
         commandSet = new HashMap<>();
 
-
+        // fill the set
     }
 
     public static AbstractCommand get(String commandName) {
