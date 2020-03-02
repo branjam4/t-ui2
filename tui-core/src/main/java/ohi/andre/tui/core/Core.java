@@ -1,5 +1,7 @@
 package ohi.andre.tui.core;
 
+import android.content.Context;
+
 import ohi.andre.tui.commands.AbstractCommand;
 import ohi.andre.tui.commands.CommandSet;
 
@@ -10,20 +12,30 @@ All the operations done by Core are synchronous. Be careful
 public class Core {
     public static Core instance;
 
-    private Core() {}
+    private final Context context;
+    private final CommandSet commandSet;
 
-    public static synchronized Core getInstance() {
-        if(instance == null) instance = new Core();
+    private Core(Context context) {
+        this.context = context;
+        this.commandSet = new CommandSet();
+    }
+
+    public static synchronized Core getInstance(Context context) {
+        if(instance == null) instance = new Core(context);
         return instance;
     }
 
     public boolean tryCommand(String commandName) {
-        AbstractCommand command = CommandSet.get(commandName);
+        AbstractCommand command = commandSet.get(commandName);
         if(command != null) {
-            command.exec();
+            command.exec(context);
             return true;
         } else {
             return false;
         }
+    }
+
+    public void dispose() {
+        commandSet.dispose(context);
     }
 }

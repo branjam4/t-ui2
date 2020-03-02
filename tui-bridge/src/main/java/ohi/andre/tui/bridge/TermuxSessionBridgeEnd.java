@@ -1,8 +1,16 @@
 package ohi.andre.tui.bridge;
 
+import android.content.Context;
+
 /*
-one instance for each session
+One instance for each session
  */
-public interface TermuxSessionBridgeEnd {
-    void sendBackCommand(String command);
+public abstract class TermuxSessionBridgeEnd {
+    public final Context sessionContext;
+
+    public TermuxSessionBridgeEnd(Context context) {
+        this.sessionContext = context;
+    }
+
+    public abstract void sendBackCommand(String command);
 }

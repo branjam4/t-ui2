@@ -41,12 +41,15 @@ public class Bridge {
      tries to execute command as a t-ui command (apps, alias, tui-command, ..)
      this is an asynchronous method
      */
-    private synchronized void attemptTuiCommand(TermuxSessionBridgeEnd bridgeEnd, String command) {
+    private synchronized void attemptTuiCommand(final TermuxSessionBridgeEnd bridgeEnd, final String command) {
         if(tuiCommandAttempt != null) tuiCommandAttempt.cancel(true);
 
-        tuiCommandAttempt = workerThread.submit(() -> {
-            boolean isTuiCommand = Core.getInstance().tryCommand(command);
-            if(!isTuiCommand) sendBackToTermux(bridgeEnd, command);
+        tuiCommandAttempt = workerThread.submit(new Runnable() {
+            @Override
+            public void run() {
+                boolean isTuiCommand = Core.getInstance(bridgeEnd.sessionContext).tryCommand(command);
+                if (!isTuiCommand) Bridge.this.sendBackToTermux(bridgeEnd, command);
+            }
         }, null);
     }
 
