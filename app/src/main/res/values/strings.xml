@@ -48,4 +48,8 @@
     <string name="file_received_title">Save file in ~/downloads/</string>
     <string name="file_received_edit_button">Edit</string>
     <string name="file_received_open_folder_button">Open folder</string>
+
+    <!--  t-ui2  -->
+    <string name="flashlight_permission_description">Allows access to the flashlight</string>
+    <string name="flashlight_label">Flashlight</string>
 </resources>
