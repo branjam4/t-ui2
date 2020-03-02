@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">tui-commands</string>
+
+    <string name="error_occurred">An error has occurred</string>
 </resources>
