@@ -68,6 +68,7 @@ android {
             includeAndroidResources = true
         }
     }
+    ndkVersion = '21.0.6113669'
 }
 
 dependencies {
