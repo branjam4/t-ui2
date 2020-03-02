@@ -1,6 +1,9 @@
 package ohi.andre.tui.commands;
 
+import android.content.Context;
+
 public interface AbstractCommand {
     String name();
-    void exec();
+    String exec(Context context);
+    void dispose(Context context);
 }
