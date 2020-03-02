@@ -9,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.InputType;
@@ -233,6 +232,8 @@ public final class TerminalView extends View {
         mTopRow = 0;
 
         mTermSession = session;
+        mTermSession.sessionContext = getContext();
+
         mEmulator = null;
         mCombiningAccent = 0;
 

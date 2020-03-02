@@ -1,6 +1,7 @@
 package com.termux.terminal;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.system.ErrnoException;
@@ -75,6 +76,7 @@ public final class TerminalSession extends TerminalOutput {
     public final String mHandle = UUID.randomUUID().toString();
 
     TerminalEmulator mEmulator;
+    public Context sessionContext;
 
     /**
      * A queue written to from a separate thread when the process outputs, and read by main thread to process by
@@ -151,7 +153,7 @@ public final class TerminalSession extends TerminalOutput {
     public TerminalSession(String shellPath, String cwd, String[] args, String[] env, SessionChangedCallback changeCallback) {
         mChangeCallback = changeCallback;
 
-        this.bridgeEnd = new TermuxSessionBridgeEnd() {
+        this.bridgeEnd = new TermuxSessionBridgeEnd(sessionContext) {
             @Override
             public void sendBackCommand(String command) {
                 command = command + '\n';
