@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.HashMap;
 
 import ohi.andre.tui.commands.raw.flash;
+import ohi.andre.tui.commands.raw.uninstall;
 
 public class CommandSet {
     private HashMap<String, AbstractCommand> commandSet;
@@ -14,6 +15,7 @@ public class CommandSet {
 
         // fill the set
         add(new flash());
+        add(new uninstall());
     }
 
     private void add(AbstractCommand command) {
