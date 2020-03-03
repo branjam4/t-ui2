@@ -1,7 +1,5 @@
 package ohi.andre.tui.bridge;
 
-import android.util.Log;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -49,9 +47,9 @@ public class Bridge {
         tuiCommandAttempt = workerThread.submit(new Runnable() {
             @Override
             public void run() {
-                boolean isTuiCommand = Core.getInstance(bridgeEnd.sessionContext).tryCommand(command);
-                if (!isTuiCommand) Bridge.this.sendBackToTermux(bridgeEnd, command);
-                Log.d("andre", command);
+                Runnable runnableCommand = Core.getInstance(bridgeEnd.sessionContext).commandToTuiRunnable(command);
+                if (runnableCommand == null) Bridge.this.sendBackToTermux(bridgeEnd, command);
+                else runnableCommand.run();
             }
         }, null);
     }
