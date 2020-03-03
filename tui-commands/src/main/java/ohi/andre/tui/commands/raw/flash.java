@@ -2,7 +2,6 @@ package ohi.andre.tui.commands.raw;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 
@@ -39,7 +38,10 @@ public class flash implements AbstractCommand {
             try {
                 // look for a camera with flashlight
                 for(String id : cameraManager.getCameraIdList()) {
-                    if(cameraManager.getCameraCharacteristics(id).get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
+                    CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(id);
+                    if(characteristics == null) continue;
+
+                    if(characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
                         flashEnabled = !flashEnabled;
                         cameraManager.setTorchMode(id, flashEnabled);
 
@@ -49,7 +51,7 @@ public class flash implements AbstractCommand {
 
                 // if no camera with a flashlight attached is found, error
                 return context.getString(R.string.error_occurred);
-            } catch (CameraAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return context.getString(R.string.error_occurred);
             }

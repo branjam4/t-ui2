@@ -3,7 +3,6 @@ package ohi.andre.tui.commands;
 import android.content.Context;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 import ohi.andre.tui.commands.raw.flash;
 
@@ -26,9 +25,8 @@ public class CommandSet {
     }
 
     public void dispose(Context context) {
-        Iterator<AbstractCommand> iterator = commandSet.values().iterator();
-        while (iterator.hasNext()) {
-            iterator.next().dispose(context);
+        for (AbstractCommand command : commandSet.values()) {
+            command.dispose(context);
         }
     }
 }
