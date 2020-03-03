@@ -27,8 +27,8 @@ public class Bridge {
     }
 
     // accepts an incoming input from a TerminalSession
-    public void input(TermuxSessionBridgeEnd bridgeEnd, String input) {
-        inputParser.newInput(bridgeEnd, input);
+    public PendingInputInfo input(TermuxSessionBridgeEnd bridgeEnd, String input) {
+        return inputParser.newInput(bridgeEnd, input);
     }
 
     // accepts an incoming newline from a TerminalSession, and decides if the command will be managed by t-ui or by the shell
@@ -47,7 +47,7 @@ public class Bridge {
         tuiCommandAttempt = workerThread.submit(new Runnable() {
             @Override
             public void run() {
-                Runnable runnableCommand = Core.getInstance(bridgeEnd.sessionContext).commandToTuiRunnable(command);
+                Runnable runnableCommand = Core.getInstance(bridgeEnd.sessionContext).createTuiRunnable(command);
                 if (runnableCommand == null) Bridge.this.sendBackToTermux(bridgeEnd, command);
                 else runnableCommand.run();
             }

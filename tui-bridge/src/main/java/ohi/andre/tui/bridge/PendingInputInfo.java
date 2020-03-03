@@ -7,6 +7,8 @@ This will be used to deliver Suggestions
 public class PendingInputInfo {
     public static class CommandType {
         public static int APPLICATION = 10;
+
+        // PendingInputInfo will contain a CommandPack which describes the command and the current state of parameters
         public static int TUI_COMMAND = 11;
         public static int ALIAS = 12;
     }
