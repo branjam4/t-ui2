@@ -25,6 +25,11 @@ public class Core {
         return instance;
     }
 
+    // this is only to be used by TermuxActivity, it may return a null reference
+    public static synchronized Core getInstance() {
+        return instance;
+    }
+
     public boolean tryCommand(String commandName) {
         AbstractCommand command = commandSet.get(commandName);
         if(command != null) {
