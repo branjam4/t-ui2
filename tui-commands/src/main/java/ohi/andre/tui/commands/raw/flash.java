@@ -8,6 +8,7 @@ import android.hardware.camera2.CameraManager;
 import androidx.annotation.NonNull;
 
 import ohi.andre.tui.commands.AbstractCommand;
+import ohi.andre.tui.commands.parameters.Parameter;
 import ohi.andre.tui.commands.R;
 
 public class flash implements AbstractCommand {
@@ -66,5 +67,10 @@ public class flash implements AbstractCommand {
             CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
             cameraManager.unregisterTorchCallback(torchCallback);
         }
+    }
+
+    @Override
+    public Parameter[] parameters() {
+        return null;
     }
 }
