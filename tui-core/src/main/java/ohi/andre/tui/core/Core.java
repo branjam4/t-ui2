@@ -2,18 +2,18 @@ package ohi.andre.tui.core;
 
 import android.content.Context;
 
-import ohi.andre.tui.commands.AbstractCommand;
+import ohi.andre.tui.commands.CommandPack;
 import ohi.andre.tui.commands.CommandSet;
 
 /*
-This class serves as a gateway between Termux and t-ui. This is the tui-end of the Bridge.
+This is the tui-end of the Bridge.
 All the operations done by Core are synchronous. Be careful
  */
 public class Core {
-    public static Core instance;
+    private static Core instance;
 
     private final Context context;
-    private final CommandSet commandSet;
+    public final CommandSet commandSet;
 
     private Core(Context context) {
         this.context = context;
@@ -30,16 +30,17 @@ public class Core {
         return instance;
     }
 
-    public Runnable commandToTuiRunnable(String commandName) {
-        final AbstractCommand command = commandSet.get(commandName);
-        if(command != null) {
+    public Runnable createTuiRunnable(String command) {
+        final CommandPack tuiCommandPack = commandSet.buildCommandPack(command);
+        if(tuiCommandPack != null) {
             return new Runnable() {
                 @Override
                 public void run() {
-                    command.exec(context);
+                    tuiCommandPack.tuiCommand.exec(context, tuiCommandPack.parameters);
                 }
             };
         } else {
+            // todo: apps, alias, ...
             return null;
         }
     }
