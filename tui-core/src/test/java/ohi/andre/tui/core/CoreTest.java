@@ -15,6 +15,6 @@ public class CoreTest {
 
     @Test
     public void testFlashCommand() {
-        assertNotNull(core.commandToTuiRunnable("flash"));
+        assertNotNull(core.createTuiRunnable("flash"));
     }
 }
