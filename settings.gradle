@@ -1,1 +1,1 @@
-include ':app', ':terminal-emulator', ':terminal-view', ':tui-bridge', ':test', ':tui-core', ':tui-commands', ':tui-platform', ':tui-suggestions'
+include ':app', ':terminal-emulator', ':terminal-view', ':tui-core', ':tui-commands', ':tui-platform', ':tui-suggestions', ':tui-bridge'
