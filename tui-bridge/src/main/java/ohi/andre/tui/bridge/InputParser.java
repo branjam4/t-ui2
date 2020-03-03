@@ -21,8 +21,9 @@ public class InputParser {
         inputStorage.set(key, pendingInput);
     }
 
+    // whenever you request a command, it's deleted
     public String get(Object key) {
-        return (String) inputStorage.get(key);
+        return (String) inputStorage.remove(key);
     }
 }
 
@@ -70,5 +71,15 @@ class CustomMap {
     public void add(Object key, Object value) {
         keys.add(key);
         values.add(value);
+    }
+
+    public Object remove(Object key) {
+        for(int i = 0; i < keys.size(); i++) {
+            if(keys.get(i) == key) {
+                keys.remove(i);
+                return values.remove(i);
+            }
+        }
+        return null;
     }
 }
