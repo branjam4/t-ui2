@@ -31,7 +31,7 @@ public class InputParser {
         currentInput = currentInput.trim();
         if(currentInput.length() == 0) return null;
 
-        Core core = Core.getInstance();
+        Core core = Core.getInstance(null);
 
         // check whether currentInput starts with a command
         CommandPack tuiCommandPack = core.commandSet.buildCommandPack(currentInput);
