@@ -1,4 +1,4 @@
-package ohi.andre.tui.core;
+package ohi.andre.tui.platform;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
