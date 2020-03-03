@@ -22,7 +22,7 @@ public class CommandSet {
         commandSet.put(command.name(), command);
     }
 
-    public AbstractCommand get(String commandName) {
+    private AbstractCommand get(String commandName) {
         return commandSet.get(commandName);
     }
 
@@ -30,5 +30,14 @@ public class CommandSet {
         for (AbstractCommand command : commandSet.values()) {
             command.dispose(context);
         }
+    }
+
+    public CommandPack buildCommandPack(String command) {
+        String[] split = command.split(" ");
+        AbstractCommand tuiCommand = get(split[0]);
+        if(tuiCommand == null) return null;
+
+        // todo: parse parameters
+        return new CommandPack(tuiCommand, null);
     }
 }
