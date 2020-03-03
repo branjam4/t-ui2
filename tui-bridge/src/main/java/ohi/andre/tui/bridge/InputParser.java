@@ -3,7 +3,10 @@ package ohi.andre.tui.bridge;
 import java.util.ArrayList;
 import java.util.List;
 
-// This class holds input coming from different TerminalSession(s) (hence the CustomMap holding references to TerminalSession).
+import ohi.andre.tui.commands.CommandPack;
+import ohi.andre.tui.core.Core;
+
+// This class holds and analyzes input coming from several TerminalSession(s)
 public class InputParser {
     // Store pending inputs for each TerminalSession alive
     private CustomMap inputStorage;
@@ -13,12 +16,29 @@ public class InputParser {
     }
 
     // Called every time a new input arrives to TerminalSession. We need to update the corresponding pending input
-    public void newInput(Object key, String newInput) {
+    public PendingInputInfo newInput(Object key, String newInput) {
         String pendingInput = (String) inputStorage.get(key);
         if(pendingInput == null) pendingInput = newInput;
         else pendingInput = pendingInput + newInput;
 
         inputStorage.set(key, pendingInput);
+
+        return analyzeInput(pendingInput);
+    }
+
+    private PendingInputInfo analyzeInput(String currentInput) {
+        if(currentInput == null || currentInput.length() == 0) return null;
+        currentInput = currentInput.trim();
+        if(currentInput.length() == 0) return null;
+
+        Core core = Core.getInstance();
+
+        // check whether currentInput starts with a command
+        CommandPack tuiCommandPack = core.commandSet.buildCommandPack(currentInput);
+        if(tuiCommandPack != null) {
+            return new PendingInputInfo(PendingInputInfo.CommandType.TUI_COMMAND, tuiCommandPack);
+        }
+        return null;
     }
 
     // whenever you request a command, it's deleted
