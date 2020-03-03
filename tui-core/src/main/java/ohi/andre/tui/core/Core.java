@@ -30,13 +30,17 @@ public class Core {
         return instance;
     }
 
-    public boolean tryCommand(String commandName) {
-        AbstractCommand command = commandSet.get(commandName);
+    public Runnable commandToTuiRunnable(String commandName) {
+        final AbstractCommand command = commandSet.get(commandName);
         if(command != null) {
-            command.exec(context);
-            return true;
+            return new Runnable() {
+                @Override
+                public void run() {
+                    command.exec(context);
+                }
+            };
         } else {
-            return false;
+            return null;
         }
     }
 
