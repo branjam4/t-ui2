@@ -12,8 +12,8 @@ import ohi.andre.tui.commands.parameters.Parameter;
 import ohi.andre.tui.commands.R;
 
 public class flash implements AbstractCommand {
-    boolean flashEnabled = false;
-    CameraManager.TorchCallback torchCallback = null;
+    private boolean flashEnabled = false;
+    private CameraManager.TorchCallback torchCallback = null;
 
     @Override
     public String name() {

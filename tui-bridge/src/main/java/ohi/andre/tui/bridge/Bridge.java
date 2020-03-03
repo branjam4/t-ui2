@@ -28,6 +28,7 @@ public class Bridge {
 
     // accepts an incoming input from a TerminalSession
     public PendingInputInfo input(TermuxSessionBridgeEnd bridgeEnd, String input) {
+        // todo: bring the analysis of the pending input to another thread
         return inputParser.newInput(bridgeEnd, input);
     }
 

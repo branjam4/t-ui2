@@ -252,6 +252,7 @@ public final class TerminalSession extends TerminalOutput {
             System.arraycopy(data, offset, input, 0, count);
 
             // write to t-ui, but not to Termux
+            // todo: update suggestions
             Bridge.getInstance().input(bridgeEnd, new String(input));
         }
 
