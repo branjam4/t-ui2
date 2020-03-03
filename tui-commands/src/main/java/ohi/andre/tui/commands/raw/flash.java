@@ -21,7 +21,7 @@ public class flash implements AbstractCommand {
     }
 
     @Override
-    public String exec(Context context) {
+    public String exec(Context context, Parameter[] parameters) {
         if(context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             CameraManager cameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
 
