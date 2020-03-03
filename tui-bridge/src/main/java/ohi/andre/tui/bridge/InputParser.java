@@ -3,7 +3,7 @@ package ohi.andre.tui.bridge;
 import java.util.ArrayList;
 import java.util.List;
 
-// This class manages holds input. No computation here
+// This class holds input coming from different TerminalSession(s) (hence the CustomMap holding references to TerminalSession).
 public class InputParser {
     // Store pending inputs for each TerminalSession alive
     private CustomMap inputStorage;
