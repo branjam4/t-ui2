@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
 import ohi.andre.tui.commands.AbstractCommand;
-import ohi.andre.tui.commands.parameters.Parameter;
 import ohi.andre.tui.commands.R;
+import ohi.andre.tui.commands.parameters.Parameter;
 
 public class flash implements AbstractCommand {
     private boolean flashEnabled = false;
@@ -33,7 +35,7 @@ public class flash implements AbstractCommand {
                     }
                 };
 
-                cameraManager.registerTorchCallback(torchCallback, null);
+                cameraManager.registerTorchCallback(torchCallback, new Handler(Looper.getMainLooper()));
             }
 
             try {
