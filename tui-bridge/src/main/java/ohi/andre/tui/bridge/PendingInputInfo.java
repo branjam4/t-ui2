@@ -1,5 +1,8 @@
 package ohi.andre.tui.bridge;
 
+import ohi.andre.tui.commands.AbstractCommand;
+import ohi.andre.tui.commands.parameters.Parameter;
+
 /*
 Retrieves info about what's inside the input field at the moment (a command, an app-name, ...).
 This will be used to deliver Suggestions
@@ -13,13 +16,22 @@ public class PendingInputInfo {
         public static int ALIAS = 12;
     }
 
-    private int currentCommandType;
-    // contains the content associated with the current command (i.e. an AbstractCommand)
-    private Object content;
+    public final int currentCommandType;
 
-    public PendingInputInfo(int currentCommandType, Object content) {
+    // contains the content associated with the current command (i.e. an AbstractCommand)
+    public final Object content;
+
+    // contains the current complete parameters in the input
+    private final Parameter[] parameters;
+
+    // contains what the user has typed for the next parameter so far
+    private final String nextParameterStartingString;
+
+    public PendingInputInfo(int currentCommandType, Object content, Parameter[] parameters, String nextParameterStartingString) {
         this.currentCommandType = currentCommandType;
         this.content = content;
+        this.parameters = parameters;
+        this.nextParameterStartingString = nextParameterStartingString;
     }
 
     public int getCurrentCommandType() {
@@ -28,5 +40,30 @@ public class PendingInputInfo {
 
     public Object getContent() {
         return content;
+    }
+
+    public Parameter getParameter(int i) {
+        return parameters[i];
+    }
+
+    public int getParametersSize() {
+        return parameters.length;
+    }
+
+    // return the next parameter wanted by the current command
+    public Parameter nextParameter() {
+        if(currentCommandType != CommandType.TUI_COMMAND) return null;
+        else {
+            AbstractCommand tuiCommand = (AbstractCommand) content;
+            Parameter[] commandParameters = tuiCommand.parameters();
+
+            if(getParametersSize() >= commandParameters.length) return null;
+            else return commandParameters[getParametersSize()];
+        }
+    }
+
+    // return the current content of the next parameter
+    public String nextParameterStartingString() {
+        return nextParameterStartingString;
     }
 }
