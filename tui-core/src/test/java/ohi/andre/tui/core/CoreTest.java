@@ -14,7 +14,8 @@ public class CoreTest {
     }
 
     @Test
-    public void testFlashCommand() {
+    public void testRandomCommand() {
         assertNotNull(core.createTuiRunnable("flash"));
+        assertNotNull(core.createTuiRunnable("uninstall"))
     }
 }
