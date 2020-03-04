@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import ohi.andre.tui.commands.AbstractCommand;
+import ohi.andre.tui.commands.parameters.ApplicationParameter;
 import ohi.andre.tui.commands.parameters.Parameter;
 
 public class uninstall implements AbstractCommand {
@@ -22,7 +23,7 @@ public class uninstall implements AbstractCommand {
     @Override
     public void dispose(Context context) {}
 
-    Parameter[] parameters = {};
+    Parameter[] parameters = {ApplicationParameter.representative};
     @Override
     public Parameter[] parameters() {
         return parameters;
