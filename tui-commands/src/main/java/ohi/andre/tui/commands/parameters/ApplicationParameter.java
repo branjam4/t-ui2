@@ -11,4 +11,6 @@ public class ApplicationParameter extends Parameter {
     public static ApplicationParameter fromString(List<Object> appList) {
         return new ApplicationParameter(null);
     }
+
+    public static final ApplicationParameter representative = new ApplicationParameter(null);
 }
