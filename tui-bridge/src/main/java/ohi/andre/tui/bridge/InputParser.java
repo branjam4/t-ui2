@@ -16,27 +16,25 @@ public class InputParser {
     }
 
     // Called every time a new input arrives to TerminalSession. We need to update the corresponding pending input
-    public PendingInputInfo newInput(Object key, String newInput) {
+    public PendingInputInfo newInput(Core core, Object key, String newInput) {
         String pendingInput = (String) inputStorage.get(key);
         if(pendingInput == null) pendingInput = newInput;
         else pendingInput = pendingInput + newInput;
 
         inputStorage.set(key, pendingInput);
 
-        return analyzeInput(pendingInput);
+        return analyzeInput(core, pendingInput);
     }
 
-    private PendingInputInfo analyzeInput(String currentInput) {
+    private PendingInputInfo analyzeInput(Core core, String currentInput) {
         if(currentInput == null || currentInput.length() == 0) return null;
         currentInput = currentInput.trim();
         if(currentInput.length() == 0) return null;
 
-        Core core = Core.getInstance();
-
         // check whether currentInput starts with a command
-        CommandPack tuiCommandPack = core.commandSet.buildCommandPack(currentInput);
+        CommandPack tuiCommandPack = core.getCommandSet().buildCommandPack(currentInput);
         if(tuiCommandPack != null) {
-            return new PendingInputInfo(PendingInputInfo.CommandType.TUI_COMMAND, tuiCommandPack);
+            return new PendingInputInfo(PendingInputInfo.CommandType.TUI_COMMAND, tuiCommandPack, null, null);
         }
         return null;
     }
