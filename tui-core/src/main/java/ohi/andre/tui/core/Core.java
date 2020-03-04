@@ -15,7 +15,7 @@ public class Core {
     private static Core instance;
 
     private final Context context;
-    public final CommandSet commandSet;
+    private final CommandSet commandSet;
 
     private Core(Context context) {
         this.context = context;
@@ -29,6 +29,10 @@ public class Core {
 
     public static synchronized Core getInstance() {
         return instance;
+    }
+
+    public CommandSet getCommandSet() {
+        return commandSet;
     }
 
     public Runnable createTuiRunnable(String command) {
