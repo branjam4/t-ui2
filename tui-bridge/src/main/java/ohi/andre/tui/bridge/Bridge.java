@@ -1,5 +1,7 @@
 package ohi.andre.tui.bridge;
 
+import android.content.Context;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -12,17 +14,20 @@ This is the bridge between Termux and t-ui. Every command will pass through this
 public class Bridge {
     public static Bridge instance;
 
+    private final Core tuiCore;
+
     private final InputParser inputParser;
 
     private final ExecutorService workerThread = Executors.newSingleThreadExecutor();
     private Future<Boolean> tuiCommandAttempt;
 
-    private Bridge() {
+    private Bridge(Context context) {
         inputParser = new InputParser();
+        tuiCore = Core.getInstance(context);
     }
 
-    public static synchronized Bridge getInstance() {
-        if(instance == null) instance = new Bridge();
+    public static synchronized Bridge getInstance(Context context) {
+        if(instance == null) instance = new Bridge(context);
         return instance;
     }
 

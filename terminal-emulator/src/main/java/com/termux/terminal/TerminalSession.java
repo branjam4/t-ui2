@@ -246,14 +246,14 @@ public final class TerminalSession extends TerminalOutput {
     @Override
     public void write(byte[] data, int offset, int count) {
         if(count == 1 && data[offset] == ASCII_CODE_CARRIAGE_RETURN) {
-            Bridge.getInstance().newline(bridgeEnd);
+            Bridge.getInstance(sessionContext).newline(bridgeEnd);
         } else {
             byte[] input = new byte[count];
             System.arraycopy(data, offset, input, 0, count);
 
             // write to t-ui, but not to Termux
             // todo: update suggestions
-            Bridge.getInstance().input(bridgeEnd, new String(input));
+            Bridge.getInstance(sessionContext).input(bridgeEnd, new String(input));
         }
 
         //if (mShellPid > 0) mTerminalToProcessIOQueue.write(data, offset, count);
