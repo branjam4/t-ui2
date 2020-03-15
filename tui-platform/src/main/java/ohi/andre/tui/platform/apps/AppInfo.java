@@ -1,4 +1,4 @@
-package ohi.andre.tui.core.apps;
+package ohi.andre.tui.platform.apps;
 
 import androidx.annotation.NonNull;
 

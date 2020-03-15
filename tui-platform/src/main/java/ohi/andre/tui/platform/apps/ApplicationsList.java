@@ -1,4 +1,4 @@
-package ohi.andre.tui.core.apps;
+package ohi.andre.tui.platform.apps;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -69,7 +69,7 @@ public class ApplicationsList {
         return cachedList;
     }
 
-    private String insertDividers(List<AppInfo> appList) {
+    public static String insertDividers(List<AppInfo> appList) {
         if(appList == null || appList.size() == 0) return null;
 
         StringBuilder builder = new StringBuilder();
@@ -92,7 +92,7 @@ public class ApplicationsList {
 
     // Settings -> S
     // mario kart -> M
-    private char leadingChar(AppInfo app) {
+    public static char leadingChar(AppInfo app) {
         return app.label.toUpperCase().charAt(0);
     }
 }
