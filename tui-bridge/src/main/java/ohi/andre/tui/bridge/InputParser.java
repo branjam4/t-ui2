@@ -11,6 +11,9 @@ public class InputParser {
     // Store pending inputs for each TerminalSession alive
     private CustomMap inputStorage;
 
+    // We keep an instance which refers to the last generated pending info
+    private PendingInputInfo cachedInputInfo;
+
     public InputParser() {
         inputStorage = new CustomMap();
     }
@@ -23,7 +26,9 @@ public class InputParser {
 
         inputStorage.set(key, pendingInput);
 
-        return analyzeInput(core, pendingInput);
+        PendingInputInfo info = analyzeInput(core, pendingInput);
+        cachedInputInfo = info;
+        return info;
     }
 
     private PendingInputInfo analyzeInput(Core core, String currentInput) {
@@ -31,11 +36,14 @@ public class InputParser {
         currentInput = currentInput.trim();
         if(currentInput.length() == 0) return null;
 
-        // check whether currentInput starts with a command
-        CommandPack tuiCommandPack = core.getCommandSet().buildCommandPack(currentInput);
+        Object[] obj = core.getCommandSet().buildCommandPack(currentInput);
+        CommandPack tuiCommandPack = (CommandPack) obj[0];
         if(tuiCommandPack != null) {
-            return new PendingInputInfo(PendingInputInfo.CommandType.TUI_COMMAND, tuiCommandPack, null, null);
+            return new PendingInputInfo(PendingInputInfo.CommandType.TUI_COMMAND, tuiCommandPack, null, (String) obj[1]);
         }
+
+        // todo: more cases
+
         return null;
     }
 
