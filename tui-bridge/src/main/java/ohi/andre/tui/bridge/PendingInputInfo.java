@@ -25,13 +25,13 @@ public class PendingInputInfo {
     private final Parameter[] parameters;
 
     // contains what the user has typed for the next parameter so far
-    private final String nextParameterStartingString;
+    public final String inputLeftovers;
 
-    public PendingInputInfo(int currentCommandType, Object content, Parameter[] parameters, String nextParameterStartingString) {
+    public PendingInputInfo(int currentCommandType, Object content, Parameter[] parameters, String inputLeftovers) {
         this.currentCommandType = currentCommandType;
         this.content = content;
         this.parameters = parameters;
-        this.nextParameterStartingString = nextParameterStartingString;
+        this.inputLeftovers = inputLeftovers;
     }
 
     public int getCurrentCommandType() {
@@ -60,10 +60,5 @@ public class PendingInputInfo {
             if(getParametersSize() >= commandParameters.length) return null;
             else return commandParameters[getParametersSize()];
         }
-    }
-
-    // return the current content of the next parameter
-    public String nextParameterStartingString() {
-        return nextParameterStartingString;
     }
 }
